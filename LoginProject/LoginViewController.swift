@@ -27,7 +27,12 @@ class LoginViewController: UIViewController, CreateAccountViewControllerDelegate
         // Dispose of any resources that can be recreated.
     }
 
-    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "loginToCreateAccountSegue" {
+            var createAccountVC = segue.destinationViewController as CreateAccountViewController
+            createAccountVC.delegate = self
+        }
+    }
     
     
 //    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -38,7 +43,15 @@ class LoginViewController: UIViewController, CreateAccountViewControllerDelegate
 //    }
 
     @IBAction func loginButtonPressed(sender: UIButton) {
-        self.performSegueWithIdentifier("loginToMainSegue", sender: self)
+        
+        let usernameSavedFromNSUserDefaults = NSUserDefaults.standardUserDefaults().objectForKey(kUserNameKey) as String
+        println(usernameSavedFromNSUserDefaults)
+        let passwordSavedFromNSUserDefaults = NSUserDefaults.standardUserDefaults().objectForKey(kPasswordKey) as String
+        println(passwordSavedFromNSUserDefaults)
+        
+        if usernameTextField.text == usernameSavedFromNSUserDefaults && passwordTextField.text == passwordSavedFromNSUserDefaults {
+            self.performSegueWithIdentifier("loginToMainSegue", sender: self)
+        }
     }
     
     @IBAction func createAccountButtonPressed(sender: AnyObject) {
