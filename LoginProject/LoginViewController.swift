@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, CreateAccountViewControllerDelegate {
 
     @IBOutlet weak var usernameTextField: UITextField!
     
@@ -26,7 +26,16 @@ class LoginViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+
     
+    
+    
+//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+//        if segue.identifier == "loginToCreateAccountSegue" {
+//            var createAccountVC = segue.destinationViewController as CreateAccountViewController
+//            createAccountVC.delegate = self
+//        }
+//    }
 
     @IBAction func loginButtonPressed(sender: UIButton) {
         self.performSegueWithIdentifier("loginToMainSegue", sender: self)
@@ -36,4 +45,11 @@ class LoginViewController: UIViewController {
         self.performSegueWithIdentifier("loginToCreateAccountSegue", sender: self)
     }
 
+    
+    // CreateAccountViewControllerDelegate
+    
+    func accountCreated() {
+        self.performSegueWithIdentifier("loginToMainSegue", sender: nil)
+    }
+    
 }
